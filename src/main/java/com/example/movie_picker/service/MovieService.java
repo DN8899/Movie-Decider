@@ -30,4 +30,20 @@ public class MovieService {
                 .toString();
         return restTemplate.getForObject(url, String.class);
     }
+
+    public String findMovies(Integer year, String genre) {
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(baseUrl + "discover/movie")
+                .queryParam("api_key", apiKey);
+
+                if (year != null) {
+                    uriComponentsBuilder.queryParam("primary_release_year", year);
+                }
+                if (genre != null) {
+                    uriComponentsBuilder.queryParam("with_genres", genre);
+                }
+
+                String url = uriComponentsBuilder.build().toString();
+                return restTemplate.getForObject(url, String.class);
+
+    }
 }
